@@ -3,9 +3,9 @@
     {
       "id": "u-admin",
       "name": "Admin",
-      "email": "admin@example.com",
+      "email": "2005dp0503@gmail.com",
       "role": "admin",
-      "password_hash": "",
+      "password_hash": "$2b$10$LfQycQ.UFVV2xuGe0jjgMeRAn8F.FvxpPOII7PmR0EUHV3l.NnxNW",
       "twofa_enabled": true,
       "verified": true
     },
@@ -21,7 +21,7 @@
     {
       "id": "10f8c443-4639-4768-aab6-411f555a836f",
       "name": "devarsh",
-      "email": "2005dp0503@gmail.com",
+      "email": "student2@example.com",
       "role": "student",
       "password_hash": "$2b$10$9GaQ842xIHolOLN1Chn17OYr1OgQ.ED3ql9m6Oc1rtpZJj47cWq3m",
       "created_at": "2025-09-23T15:48:08.312Z",
@@ -30,9 +30,9 @@
     {
       "id": "u-student-demo",
       "name": "Demo Student",
-      "email": "devarh@gmai.com",
+      "email": "devarsh@gmail.com",
       "role": "student",
-      "password_hash": "$2b$10$U4mFXbBm3vPp96Jrlzi/zegnjHi77vYURp7O7ARnqUT35jnYosriW",
+      "password_hash": "$2b$10$7wSZX5IM7hyqD6JEtmghMuvepxbyqeIJ.JmvamJnqMZ1UUxs91w8W",
       "verified": true,
       "created_at": "2025-09-23T16:29:14.857Z"
     },
@@ -41,7 +41,7 @@
       "name": "Demo Teacher",
       "email": "dhruv@gmail.com",
       "role": "teacher",
-      "password_hash": "$2b$10$NfG3tNEe4sJ2aCCVnllm2OmeerLdKaZucxzWS.pfIOLeYMh6RRN5u",
+      "password_hash": "$2b$10$3l0kuHLAh76gqlAM71HGqe7AggWT5FdSvM1WIH/NjtXBLdOW8YXiy",
       "verified": true,
       "created_at": "2025-09-23T16:29:14.858Z"
     }

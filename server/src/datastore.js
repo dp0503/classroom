@@ -5,7 +5,7 @@ const bcrypt=require('bcryptjs');
 const DATA_FILE=path.join(__dirname,'..','data.json');
 const ADMIN_EMAIL='2005dp0503@gmail.com';
 const ADMIN_PASSWORD_HASH=bcrypt.hashSync('devarsh@22',10);
-const DEMO_STUDENT_EMAIL='devarh@gmai.com';
+const DEMO_STUDENT_EMAIL='devarsh@gmail.com';
 const DEMO_STUDENT_PASS_HASH=bcrypt.hashSync('devarsh',10);
 const DEMO_TEACHER_EMAIL='dhruv@gmail.com';
 const DEMO_TEACHER_PASS_HASH=bcrypt.hashSync('dhruv',10);
@@ -38,19 +38,33 @@ function read(){
       write(db);
     }
   }
-  // Ensure demo student exists
+  // Ensure demo student exists and is normalized
   let stu=db.users.find(u=>u.email===DEMO_STUDENT_EMAIL);
   if(!stu){
     stu={id:'u-student-demo',name:'Demo Student',email:DEMO_STUDENT_EMAIL,role:'student',password_hash:DEMO_STUDENT_PASS_HASH,verified:true,created_at:new Date().toISOString()};
     db.users.push(stu);
     write(db);
+  } else {
+    const stuOk=bcrypt.compareSync('devarsh',stu.password_hash||'');
+    if(!stuOk || !stu.verified){
+      stu.password_hash=DEMO_STUDENT_PASS_HASH;
+      stu.verified=true;
+      write(db);
+    }
   }
-  // Ensure demo teacher exists
+  // Ensure demo teacher exists and is normalized
   let tch=db.users.find(u=>u.email===DEMO_TEACHER_EMAIL);
   if(!tch){
     tch={id:'u-teacher-demo',name:'Demo Teacher',email:DEMO_TEACHER_EMAIL,role:'teacher',password_hash:DEMO_TEACHER_PASS_HASH,verified:true,created_at:new Date().toISOString()};
     db.users.push(tch);
     write(db);
+  } else {
+    const tchOk=bcrypt.compareSync('dhruv',tch.password_hash||'');
+    if(!tchOk || !tch.verified){
+      tch.password_hash=DEMO_TEACHER_PASS_HASH;
+      tch.verified=true;
+      write(db);
+    }
   }
   return db;
 }
