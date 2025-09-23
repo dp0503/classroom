@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Classroom — Notifications</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+	<header class="site-header">
+		<div class="container nav">
+			<div class="brand"><div class="brand-logo" aria-hidden="true"></div><span>Classroom</span></div>
+			<nav class="nav-actions" aria-label="Primary">
+				<a class="btn btn-ghost" href="index.html">Home</a>
+				<a class="btn btn-ghost" href="dashboards.html">Dashboards</a>
+				<a class="btn btn-ghost" href="attendance.html">Attendance</a>
+				<a class="btn btn-primary" href="login.html">Login</a>
+			</nav>
+		</div>
+	</header>
+	<main class="section">
+		<div class="container">
+			<h1 style="margin-top:0">Notifications</h1>
+			<div class="card" style="padding:16px;margin-bottom:16px">
+				<form id="notifyForm" class="form" style="grid-template-columns:1fr auto;align-items:center">
+					<div class="input"><input id="notifyText" type="text" placeholder="Write a notification..." required></div>
+					<button class="btn btn-primary" type="submit">Send</button>
+				</form>
+			</div>
+			<div id="notifyList" class="list" aria-live="polite"></div>
+		</div>
+	</main>
+	<script src="assets/js/app.js"></script>
+	<script>
+		window.addEventListener('DOMContentLoaded',()=>{ if(window.App){ App.guard(); App.renderNotifications(); } });
+	</script>
+</body>
+</html>
+

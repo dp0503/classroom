@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Classroom — Login</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+	<a class="sr-only" href="#main">Skip to content</a>
+	<div class="login-wrap">
+		<div class="container" style="width:100%">
+			<header class="nav" style="margin:16px 0">
+				<div class="brand"><div class="brand-logo" aria-hidden="true"></div><span>Classroom</span></div>
+				<a class="btn" href="index.html">Home</a>
+			</header>
+			<main id="main" class="login-card fade-up" role="main" aria-labelledby="loginTitle">
+				<section class="login-illustration" aria-hidden="true">
+					<span class="muted">Role illustration</span>
+				</section>
+				<section>
+					<h1 id="loginTitle" style="margin-top:0">Secure Login</h1>
+					<div class="role-tabs" role="tablist" aria-label="Choose role">
+						<button class="role-tab" role="tab" aria-selected="true" aria-controls="panel-student" id="tab-student" data-role="student">🎓 Student</button>
+						<button class="role-tab" role="tab" aria-selected="false" aria-controls="panel-teacher" id="tab-teacher" data-role="teacher">🧑‍🏫 Teacher</button>
+						<button class="role-tab" role="tab" aria-selected="false" aria-controls="panel-admin" id="tab-admin" data-role="admin">🛡️ Admin</button>
+					</div>
+					<p id="roleCopy" class="muted" style="margin:0 0 12px">Welcome back, Student! Let’s continue learning 🚀</p>
+
+					<div class="card" style="padding:16px; margin:16px 0">
+						<p class="muted" style="margin:0">Registration is managed by Admin. Please contact your administrator to create an account.</p>
+					</div>
+
+					<form id="loginForm" class="form" aria-describedby="roleCopy">
+						<label class="sr-only" for="email">Email</label>
+						<div class="input"><span aria-hidden="true">✉️</span><input id="email" type="email" placeholder="Email" autocomplete="email" required></div>
+						<label class="sr-only" for="password">Password</label>
+					<div class="input"><span aria-hidden="true">🔒</span><input id="password" type="password" placeholder="Password" autocomplete="current-password" required><button id="togglePwd" type="button" class="btn" style="margin-left:8px">Show</button></div>
+						<div class="form-row">
+							<label style="display:flex;align-items:center;gap:8px"><input type="checkbox"> Remember me</label>
+							<a href="#" class="muted">Forgot password?</a>
+						</div>
+						<div id="loginError" class="muted" role="alert" aria-live="assertive" style="color:var(--color-danger);min-height:20px"></div>
+						<button class="btn btn-primary" type="submit">Login</button>
+						<div style="display:flex;gap:8px">
+							<button id="btnGoogle" class="btn" type="button">G Sign in</button>
+							<button id="btnMicrosoft" class="btn" type="button">Microsoft</button>
+						</div>
+						<p class="support">Need help? <a href="#">Contact support</a></p>
+					</form>
+
+					<div id="panel-student" role="tabpanel" aria-labelledby="tab-student" hidden></div>
+					<div id="panel-teacher" role="tabpanel" aria-labelledby="tab-teacher" hidden></div>
+					<div id="panel-admin" role="tabpanel" aria-labelledby="tab-admin" hidden></div>
+				</section>
+			</main>
+		</div>
+	</div>
+	<script src="assets/js/app.js"></script>
+	<script>
+		window.addEventListener('DOMContentLoaded',()=>{ if(window.App){ App.bindLogin?.(); const t=document.getElementById('togglePwd'); const p=document.getElementById('password'); t.onclick=()=>{ p.type=p.type==='password'?'text':'password'; t.textContent=p.type==='password'?'Show':'Hide'; }; } });
+	</script>
+</body>
+</html>
+

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Classroom — Student Class</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+	<header class="site-header">
+		<div class="container nav">
+			<div class="brand"><div class="brand-logo" aria-hidden="true"></div><span>Classroom</span></div>
+			<nav class="nav-actions" aria-label="Primary">
+				<a class="btn btn-ghost" href="student.html">Back</a>
+				<a class="btn btn-primary" href="logout.html">Logout</a>
+			</nav>
+		</div>
+	</header>
+	<main class="section">
+		<div class="container">
+			<h1 id="classTitle" style="margin-top:0">Class</h1>
+			<div class="grid-3">
+				<div class="card" style="padding:16px">
+					<h3>Materials</h3>
+					<div id="matList" class="list"></div>
+				</div>
+				<div class="card" style="padding:16px">
+					<h3>Assignments</h3>
+					<div id="asgList" class="list"></div>
+				</div>
+				<div class="card" style="padding:16px">
+					<h3>Comments</h3>
+					<form id="comForm" class="form" style="grid-template-columns:1fr auto;align-items:center"><div class="input"><input id="comText" placeholder="Write a comment"></div><button class="btn" type="submit">Post</button></form>
+					<div id="comList" class="list" style="margin-top:8px"></div>
+				</div>
+			</div>
+		</div>
+	</main>
+	<script src="assets/js/app.js"></script>
+	<script>
+		function getId(){ const u=new URLSearchParams(location.search); return u.get('id'); }
+		window.addEventListener('DOMContentLoaded',()=>{
+			if(!window.App) return; App.guard('student'); const id=getId();
+			const matList=document.getElementById('matList'); const comList=document.getElementById('comList'); const asgList=document.getElementById('asgList');
+			App.api('/teacher/classes/'+id).then(c=>{ document.getElementById('classTitle').textContent=c.name||('Class '+id); });
+			function loadMaterials(){ App.api('/student/classes/'+id+'/materials').then(rows=>{ matList.innerHTML=''; rows.forEach(r=>{ const li=document.createElement('div'); li.className='list-item'; li.textContent=r.title; matList.appendChild(li); }); }); }
+			function loadComments(){ App.api('/student/classes/'+id+'/comments').then(rows=>{ comList.innerHTML=''; rows.forEach(r=>{ const li=document.createElement('div'); li.className='list-item'; li.textContent=r.text; comList.appendChild(li); }); }); }
+			function loadAssignments(){ App.api('/teacher/classes/'+id+'/assignments').then(rows=>{ asgList.innerHTML=''; rows.forEach(r=>{ const li=document.createElement('div'); li.className='list-item'; li.textContent=r.title; asgList.appendChild(li); }); }); }
+			document.getElementById('comForm').onsubmit=(e)=>{ e.preventDefault(); const text=document.getElementById('comText').value.trim(); if(!text) return; App.api('/teacher/classes/'+id+'/comments',{method:'POST',body:JSON.stringify({text})}).then(()=>{ document.getElementById('comText').value=''; loadComments(); }); };
+			loadMaterials(); loadAssignments(); loadComments();
+		});
+	</script>
+</body>
+</html>
+

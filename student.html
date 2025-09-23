@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Classroom — Student</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+	<header class="site-header">
+		<div class="container nav">
+			<div class="brand"><div class="brand-logo" aria-hidden="true"></div><span>Classroom</span></div>
+			<nav class="nav-actions" aria-label="Primary">
+				<a class="btn btn-ghost" href="dashboards.html">Dashboard</a>
+				<a class="btn btn-ghost" href="student.html">Student</a>
+				<a class="btn btn-ghost" href="teacher.html">Teacher</a>
+				<a class="btn btn-primary" href="logout.html">Logout</a>
+			</nav>
+		</div>
+	</header>
+	<main class="section">
+		<div class="container">
+			<h1 style="margin-top:0">Student Classes</h1>
+			<div class="card" style="padding:16px;margin-bottom:16px">
+				<form id="joinForm" class="form" style="grid-template-columns:1fr auto;align-items:center">
+					<div class="input"><input id="joinCode" placeholder="Enter class join code"></div>
+					<button class="btn btn-primary" type="submit">Join</button>
+				</form>
+			</div>
+			<div class="grid-3" id="classList"></div>
+		</div>
+	</main>
+	<script src="assets/js/app.js"></script>
+	<script>
+		window.addEventListener('DOMContentLoaded',()=>{
+			if(!window.App) return; App.guard('student');
+			const listEl=document.getElementById('classList');
+			function render(){
+				App.api('/student/classes').then(rows=>{
+					listEl.innerHTML='';
+					rows.forEach(r=>{
+						const card=document.createElement('div'); card.className='card'; card.style.padding='16px';
+						card.innerHTML=`<h3>Class ${r.class_id}</h3>
+						<div style="display:flex;gap:8px;margin-top:8px">
+							<a class="btn" href="student_class.html?id=${r.class_id}">Open</a>
+						</div>`;
+						listEl.appendChild(card);
+					});
+				});
+			}
+			render();
+			document.getElementById('joinForm').onsubmit=(e)=>{ e.preventDefault(); const code=document.getElementById('joinCode').value.trim(); if(!code) return; App.api('/student/classes/join',{method:'POST',body:JSON.stringify({code})}).then(()=>{ render(); document.getElementById('joinCode').value=''; }).catch(err=>alert(err.message)); };
+		});
+	</script>
+</body>
+</html>
+

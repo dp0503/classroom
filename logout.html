@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Logging out...</title>
+	<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+	<div class="section"><div class="container"><div class="card" style="padding:24px">Logging out...</div></div></div>
+	<script>
+		localStorage.removeItem('authToken'); localStorage.removeItem('userId');
+		setTimeout(()=>{ window.location.href='login.html'; }, 500);
+	</script>
+</body>
+</html>
+

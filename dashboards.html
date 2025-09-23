@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Classroom — Dashboards</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+	<header class="site-header">
+		<div class="container nav">
+			<div class="brand"><div class="brand-logo" aria-hidden="true"></div><span>Classroom</span></div>
+			<nav class="nav-actions" aria-label="Primary">
+				<a class="btn btn-ghost" href="index.html">Home</a>
+				<a class="btn btn-ghost" href="attendance.html">Attendance</a>
+				<a class="btn btn-ghost" href="notifications.html">Notifications</a>
+				<a class="btn btn-primary" href="login.html">Login</a>
+			</nav>
+		</div>
+	</header>
+	<main class="section">
+		<div class="container">
+			<h1 style="margin-top:0">Dashboards</h1>
+			<div class="role-tabs" role="tablist" aria-label="Dashboard Role">
+				<button class="role-tab" role="tab" aria-selected="true" data-role="student">Student</button>
+				<button class="role-tab" role="tab" aria-selected="false" data-role="teacher">Teacher</button>
+				<button class="role-tab" role="tab" aria-selected="false" data-role="admin">Admin</button>
+			</div>
+			<div id="dashboards" class="grid-3"></div>
+			<div style="margin-top:16px;display:flex;gap:8px">
+				<a class="btn" href="student.html">Student Portal</a>
+				<a class="btn" href="teacher.html">Teacher Portal</a>
+				<a class="btn" href="admin.html">Admin Users</a>
+			</div>
+		</div>
+	</main>
+	<script src="assets/js/app.js"></script>
+	<script>
+		window.addEventListener('DOMContentLoaded',()=>{ if(window.App){ App.guard(); App.renderDashboard('student'); } });
+	</script>
+</body>
+</html>
+

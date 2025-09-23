@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Classroom — Modern Web App</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+	<header class="site-header">
+		<div class="container nav">
+			<div class="brand">
+				<div class="brand-logo" aria-hidden="true"></div>
+				<span>Classroom</span>
+			</div>
+			<nav class="nav-actions" aria-label="Primary">
+				<a class="btn btn-ghost" href="dashboards.html">Dashboards</a>
+				<a class="btn btn-ghost" href="attendance.html">Attendance</a>
+				<a class="btn btn-ghost" href="notifications.html">Notifications</a>
+				<a class="btn btn-ghost" href="#features">Features</a>
+				<a class="btn btn-ghost" href="#pricing">Pricing</a>
+				<a class="btn btn-ghost" href="register.html">Register</a>
+				<a class="btn btn-primary" href="login.html">Login</a>
+			</nav>
+		</div>
+	</header>
+
+	<section class="hero">
+		<div class="container hero-inner">
+			<div>
+				<div class="badge">Soft‑neon • Glassmorphism • Realtime</div>
+				<h1 style="font-size:48px;line-height:1.1;margin:16px 0 12px">A modern classroom platform for students, teachers, and admins</h1>
+				<p class="muted" style="max-width:56ch">Attendance with facial recognition, FCM notifications, role‑based dashboards, and delightful micro‑interactions — designed to be accessible, responsive, and fast.</p>
+				<div style="margin-top:24px;display:flex;gap:12px">
+					<a class="btn btn-primary" href="login.html">Get Started</a>
+					<a class="btn" href="#features">Explore Features</a>
+				</div>
+				<div class="kpis">
+					<div class="kpi"><strong>Realtime</strong><div class="muted">Face attendance</div></div>
+					<div class="kpi"><strong>Secure</strong><div class="muted">RBAC + 2FA</div></div>
+					<div class="kpi"><strong>Cloud‑ready</strong><div class="muted">S3 • FCM • Firestore</div></div>
+				</div>
+			</div>
+			<div class="hero-card">
+				<h3 style="margin:0 0 8px">Live Attendance Preview</h3>
+				<p class="muted" style="margin:0 0 16px">Camera overlay with bounding boxes and confidence meter.</p>
+				<div class="card" style="height:260px;display:grid;place-items:center">
+					<span class="muted">Camera preview placeholder</span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="features" class="section">
+		<div class="container">
+			<h2 style="margin:0 0 16px">Features</h2>
+			<p class="muted" style="margin:0 0 24px;max-width:70ch">Role‑based dashboards, assignments, analytics with animated charts, messaging, resources library, and robust admin tools.</p>
+			<div class="grid-3">
+				<div class="card" style="padding:24px">
+					<h3>Dashboards</h3>
+					<p class="muted">Student • Teacher • Admin views with clear priorities.</p>
+				</div>
+				<div class="card" style="padding:24px">
+					<h3>Attendance</h3>
+					<p class="muted">Face recognition stream and manual corrections.</p>
+				</div>
+				<div class="card" style="padding:24px">
+					<h3>Notifications</h3>
+					<p class="muted">Push with FCM and in‑app inbox.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="pricing" class="section" style="background:linear-gradient(180deg, rgba(124,122,255,0.08), rgba(0,194,168,0.08))">
+		<div class="container">
+			<h2 style="margin:0 0 16px">Simple Pricing</h2>
+			<p class="muted" style="margin:0 0 24px">Start free. Upgrade when you scale.</p>
+			<div class="grid-3">
+				<div class="card" style="padding:24px">
+					<h3>Free</h3>
+					<p class="muted">Basics for small classes.</p>
+					<a class="btn btn-primary" href="login.html">Start</a>
+				</div>
+				<div class="card" style="padding:24px">
+					<h3>Pro</h3>
+					<p class="muted">Realtime features + backups.</p>
+					<a class="btn btn-primary" href="login.html">Choose</a>
+				</div>
+				<div class="card" style="padding:24px">
+					<h3>Enterprise</h3>
+					<p class="muted">SLA, SSO, audit logs.</p>
+					<a class="btn btn-primary" href="login.html">Contact</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<footer>
+		<div class="container" style="display:flex;justify-content:space-between;align-items:center">
+			<span class="muted">© Classroom</span>
+			<a class="muted" href="login.html">Login</a>
+		</div>
+	</footer>
+
+	<script src="assets/js/app.js"></script>
+</body>
+</html>
+

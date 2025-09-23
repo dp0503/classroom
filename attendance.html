@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Classroom — Attendance</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+	<header class="site-header">
+		<div class="container nav">
+			<div class="brand"><div class="brand-logo" aria-hidden="true"></div><span>Classroom</span></div>
+			<nav class="nav-actions" aria-label="Primary">
+				<a class="btn btn-ghost" href="index.html">Home</a>
+				<a class="btn btn-ghost" href="dashboards.html">Dashboards</a>
+				<a class="btn btn-ghost" href="notifications.html">Notifications</a>
+				<a class="btn btn-primary" href="login.html">Login</a>
+			</nav>
+		</div>
+	</header>
+	<main class="section">
+		<div class="container">
+			<h1 style="margin-top:0">Attendance</h1>
+			<div class="card" style="padding:16px;margin-bottom:16px">
+				<div class="form-row">
+					<div class="pill">Class: <select id="classSelect" style="border:0;background:transparent;outline:0"><option>Math 101</option><option>Science 202</option></select></div>
+					<button id="markAllPresent" class="btn">Mark all present</button>
+				</div>
+			</div>
+			<table class="table" aria-label="Student list">
+				<thead><tr><th>Name</th><th>Status</th><th>Action</th></tr></thead>
+				<tbody id="attendanceTable"></tbody>
+			</table>
+			<div class="section" style="padding:32px 0">
+				<h2 style="margin:0 0 8px">History</h2>
+				<div id="historyList" class="list"></div>
+			</div>
+		</div>
+	</main>
+	<script src="assets/js/app.js"></script>
+	<script>
+		window.addEventListener('DOMContentLoaded',()=>{ if(window.App){ App.guard('teacher'); App.renderAttendance(); } });
+	</script>
+</body>
+</html>
+

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Classroom — Admin</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+	<header class="site-header">
+		<div class="container nav">
+			<div class="brand"><div class="brand-logo" aria-hidden="true"></div><span>Classroom</span></div>
+			<nav class="nav-actions" aria-label="Primary">
+				<a class="btn btn-ghost" href="dashboards.html">Dashboard</a>
+				<a class="btn btn-ghost" href="teacher.html">Teacher</a>
+				<a class="btn btn-ghost" href="student.html">Student</a>
+				<a class="btn btn-primary" href="logout.html">Logout</a>
+			</nav>
+		</div>
+	</header>
+	<main class="section">
+		<div class="container">
+			<h1 style="margin-top:0">Admin — Users</h1>
+			<div class="grid-3" id="adminKpis"></div>
+			<div class="card" style="padding:16px;margin:16px 0">
+				<h3 style="margin:0 0 8px">Add User</h3>
+				<form id="addUserForm" class="form" style="grid-template-columns:repeat(4,1fr) auto;gap:12px;align-items:center">
+					<input id="uName" class="input" placeholder="Full name" required>
+					<input id="uEmail" class="input" type="email" placeholder="Email" required>
+					<input id="uPassword" class="input" type="password" placeholder="Password" required>
+					<select id="uRole" class="input"><option value="student">Student</option><option value="teacher">Teacher</option><option value="admin">Admin</option></select>
+					<button class="btn btn-primary" type="submit">Add</button>
+				</form>
+			</div>
+			<table class="table" aria-label="Users">
+				<thead><tr><th>Name</th><th>Email</th><th>Role</th><th></th></tr></thead>
+				<tbody id="usersBody"></tbody>
+			</table>
+		</div>
+	</main>
+	<script src="assets/js/app.js"></script>
+	<script>
+		window.addEventListener('DOMContentLoaded',()=>{
+			if(!window.App) return; App.guard('admin');
+			const body=document.getElementById('usersBody');
+			const kpis=document.getElementById('adminKpis');
+			function loadDashboard(){
+				App.api('/admin/dashboard').then(d=>{
+					kpis.innerHTML='';
+					[{t:'Active Users',v:d.activeUsers},{t:'Backups',v:d.backups.status},{t:'Storage (MB)',v:d.storage.usedMB}].forEach(c=>{
+						const el=document.createElement('div'); el.className='card'; el.style.padding='16px';
+						el.innerHTML=`<h3>${c.t}</h3><div style="font-size:24px;font-weight:700">${c.v}</div>`; kpis.appendChild(el);
+					});
+					// link to history
+					const link=document.createElement('a'); link.href='admin_history.html'; link.className='btn'; link.textContent='View Audit History'; link.style.marginTop='12px'; kpis.appendChild(link);
+				});
+			}
+			function loadUsers(){
+				App.api('/admin/users').then(users=>{
+					body.innerHTML='';
+					users.forEach(u=>{
+						const tr=document.createElement('tr');
+						tr.innerHTML=`<td>${u.name||''}</td><td>${u.email}</td><td>${u.role}</td><td><div style="display:flex;gap:8px"><button class='btn' data-a='edit'>Edit</button><button class='btn' data-a='del'>Delete</button></div></td>`;
+						tr.querySelector('[data-a="del"]').onclick=()=>{ if(confirm('Delete user?')) App.api('/admin/users/'+u.id,{method:'DELETE'}).then(()=>{ loadUsers(); loadDashboard(); }).catch(e=>alert(e.message)); };
+						tr.querySelector('[data-a="edit"]').onclick=()=>{
+							// turn row into editable inputs
+							tr.innerHTML=`<td><input class='input' value='${u.name||''}' data-f='name'></td><td><input class='input' value='${u.email}' data-f='email'></td><td><select class='input' data-f='role'><option ${u.role==='student'?'selected':''} value='student'>Student</option><option ${u.role==='teacher'?'selected':''} value='teacher'>Teacher</option><option ${u.role==='admin'?'selected':''} value='admin'>Admin</option></select></td><td><div style='display:flex;gap:8px'><button class='btn' data-a='save'>Save</button><button class='btn' data-a='cancel'>Cancel</button></div></td>`;
+							tr.querySelector('[data-a="cancel"]').onclick=()=>loadUsers();
+							tr.querySelector('[data-a="save"]').onclick=()=>{
+								const payload={
+									name:tr.querySelector('[data-f="name"]').value,
+									email:tr.querySelector('[data-f="email"]').value,
+									role:tr.querySelector('[data-f="role"]').value
+								};
+								App.api('/admin/users/'+u.id,{method:'PUT',body:JSON.stringify(payload)}).then(()=>{ loadUsers(); loadDashboard(); }).catch(e=>alert(e.message));
+							};
+						};
+						body.appendChild(tr);
+					});
+				});
+			}
+			document.getElementById('addUserForm').onsubmit=(e)=>{
+				e.preventDefault();
+				const payload={name:uName.value,email:uEmail.value,password:uPassword.value,role:uRole.value};
+				App.api('/admin/users',{method:'POST',body:JSON.stringify(payload)}).then(()=>{ uName.value='';uEmail.value='';uPassword.value='';uRole.value='student'; loadUsers(); loadDashboard(); }).catch(e=>alert(e.message));
+			};
+			loadDashboard(); loadUsers();
+		});
+	</script>
+</body>
+</html>
+
