@@ -15,9 +15,9 @@ async function upsertUser({ email, name, role, password }) {
 
 async function main() {
 	const users = [
-		{ email: 'student@example.com', name: 'Student One', role: 'STUDENT', password: 'Passw0rd!' },
-		{ email: 'teacher@example.com', name: 'Teacher One', role: 'TEACHER', password: 'Passw0rd!' },
-		{ email: 'admin@example.com', name: 'Admin One', role: 'ADMIN', password: 'Passw0rd!' },
+        { email: 'student@example.com', name: 'Student One', role: 'STUDENT', password: 'Student#2025' },
+        { email: 'teacher@example.com', name: 'Teacher One', role: 'TEACHER', password: 'Teacher#2025' },
+        { email: 'admin@example.com', name: 'Admin One', role: 'ADMIN', password: 'Admin#2025' },
 	];
 
 	for (const u of users) {

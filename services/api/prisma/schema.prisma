@@ -4,8 +4,8 @@ generator client {
 }
 
 datasource db {
-	provider = "postgresql"
-	url      = env("DATABASE_URL")
+    provider = "sqlite"
+    url      = env("DATABASE_URL")
 }
 
 model User {
@@ -14,7 +14,10 @@ model User {
 	password   String
 	name       String
 	role       Role
-	classes    ClassEnrollment[]
+    classes    ClassEnrollment[]
+    teachingClasses Class[]        @relation("TeacherClasses")
+    createdMaterials Material[]    @relation("UserCreatedMaterials")
+    attendances Attendance[]       @relation("UserAttendance")
 	createdAt  DateTime @default(now())
 	updatedAt  DateTime @updatedAt
 }
@@ -24,7 +27,7 @@ model Class {
 	name         String
 	code         String             @unique
 	teacherId    String
-	teacher      User               @relation(fields: [teacherId], references: [id])
+    teacher      User               @relation("TeacherClasses", fields: [teacherId], references: [id])
 	enrollments  ClassEnrollment[]
 	materials    Material[]
 	attendance   Attendance[]
@@ -51,7 +54,7 @@ model Material {
 	s3Key       String
 	createdById String
 	class       Class     @relation(fields: [classId], references: [id])
-	creator     User      @relation(fields: [createdById], references: [id])
+    creator     User      @relation("UserCreatedMaterials", fields: [createdById], references: [id])
 	createdAt   DateTime  @default(now())
 }
 
@@ -62,7 +65,7 @@ model Attendance {
 	date        DateTime
 	method      AttendanceMethod
 	class       Class   @relation(fields: [classId], references: [id])
-	student     User    @relation(fields: [studentId], references: [id])
+    student     User    @relation("UserAttendance", fields: [studentId], references: [id])
 	@@unique([classId, studentId, date])
 }
 

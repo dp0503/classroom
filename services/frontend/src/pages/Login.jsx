@@ -18,8 +18,10 @@ export default function Login() {
 		e.preventDefault()
 		setError('')
 		try {
-			await login(email, password)
-			navigate('/student')
+			const u = await login(email, password)
+			if (u.role === 'ADMIN') navigate('/admin')
+			else if (u.role === 'TEACHER') navigate('/teacher')
+			else navigate('/student')
 		} catch (err) {
 			setError('Login failed')
 		}

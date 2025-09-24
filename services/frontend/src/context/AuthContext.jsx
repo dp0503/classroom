@@ -23,6 +23,7 @@ export function AuthProvider({ children }) {
 		setToken(data.token)
 		setAuthToken(data.token)
 		localStorage.setItem('auth', JSON.stringify({ token: data.token, user: data.user }))
+		return data.user
 	}
 
 	function logout() {
