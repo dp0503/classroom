@@ -1,0 +1,93 @@
+// Prisma schema for class-specific isolation and RBAC
+generator client {
+	provider = "prisma-client-js"
+}
+
+datasource db {
+	provider = "postgresql"
+	url      = env("DATABASE_URL")
+}
+
+model User {
+	id         String   @id @default(uuid())
+	email      String   @unique
+	password   String
+	name       String
+	role       Role
+	classes    ClassEnrollment[]
+	createdAt  DateTime @default(now())
+	updatedAt  DateTime @updatedAt
+}
+
+model Class {
+	id           String             @id @default(uuid())
+	name         String
+	code         String             @unique
+	teacherId    String
+	teacher      User               @relation(fields: [teacherId], references: [id])
+	enrollments  ClassEnrollment[]
+	materials    Material[]
+	attendance   Attendance[]
+	createdAt    DateTime           @default(now())
+	updatedAt    DateTime           @updatedAt
+}
+
+model ClassEnrollment {
+	id        String  @id @default(uuid())
+	classId   String
+	userId    String
+	roleInClass ClassRole
+	class     Class   @relation(fields: [classId], references: [id])
+	user      User    @relation(fields: [userId], references: [id])
+	@@unique([classId, userId])
+}
+
+model Material {
+	id          String   @id @default(uuid())
+	classId     String
+	title       String
+	description String?
+	category    MaterialCategory
+	s3Key       String
+	createdById String
+	class       Class     @relation(fields: [classId], references: [id])
+	creator     User      @relation(fields: [createdById], references: [id])
+	createdAt   DateTime  @default(now())
+}
+
+model Attendance {
+	id          String   @id @default(uuid())
+	classId     String
+	studentId   String
+	date        DateTime
+	method      AttendanceMethod
+	class       Class   @relation(fields: [classId], references: [id])
+	student     User    @relation(fields: [studentId], references: [id])
+	@@unique([classId, studentId, date])
+}
+
+enum Role {
+	STUDENT
+	TEACHER
+	ADMIN
+}
+
+enum ClassRole {
+	STUDENT
+	TEACHING_ASSISTANT
+}
+
+enum MaterialCategory {
+	ASSIGNMENT
+	QUIZ
+	READING
+	RESOURCE
+}
+
+enum AttendanceMethod {
+	FACE_RECOGNITION
+	MANUAL
+	ID_CHECKIN
+}
+
+
