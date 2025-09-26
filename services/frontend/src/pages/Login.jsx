@@ -11,7 +11,7 @@ export default function Login() {
 	const { login } = React.useContext(AuthContext)
 	const navigate = useNavigate()
 	const [email, setEmail] = React.useState('admin@example.com')
-	const [password, setPassword] = React.useState('Passw0rd!')
+	const [password, setPassword] = React.useState('Admin#2025')
 	const [error, setError] = React.useState('')
 
 	async function onSubmit(e) {
